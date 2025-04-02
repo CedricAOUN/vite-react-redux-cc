@@ -9,23 +9,11 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          { id: Date.now(), texte: action.payload, completed: false },
-        ],
-      };
+      state.todos.push({ id: Date.now(), texte: action.payload, completed: false });
     },
     toggleTodo: (state, action) => {
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.payload
-            ? { ...todo, completed: !todo.completed }
-            : todo
-        ),
-      };
+      const todoToToggle = state.todos.find((todo) => todo.id == action.payload);
+      todoToToggle.completed = !todoToToggle.completed
     },
   },
 });
